@@ -10,18 +10,22 @@ const seedDatabase = async (_req: Request, res: Response) => {
 		await prisma.user.createMany({
 			data: [
 				{
+					name: "Alice Johnson",
 					email: "alice@example.com",
 					password: "hashed_password_123",
 				},
 				{
+					name: "Bob Smith",
 					email: "bob@example.com",
 					password: "hashed_password_456",
 				},
 				{
+					name: "Charlie Brown",
 					email: "charlie@example.com",
 					password: "hashed_password_789",
 				},
 				{
+					name: "Diana Prince",
 					email: "diana@example.com",
 					password: "hashed_password_012",
 				},

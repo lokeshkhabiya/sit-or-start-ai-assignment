@@ -16,8 +16,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "sitorstartai",
-  description: "sitorstartai",
+  title: "Sit or Start AI - Reserve your perfect experience",
+  description: "Discover and reserve seats for amazing events happening near you",
 };
 
 export default function RootLayout({
