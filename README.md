@@ -64,31 +64,38 @@ sitorstartai/
 - `bun run db:migrate`: Run database migrations
 - `bun run db:studio`: Open database studio UI
 
-## Deployment (Vercel + API)
+## Deployment (AWS)
 
-The frontend (`apps/web`) is deployed on Vercel, and the backend (`apps/server`) should be deployed separately (for example on Railway/Render/Fly).
+The application is deployed to AWS with a separate frontend and backend:
 
-### 1) Deploy backend first
+- Frontend (`apps/web`): hosted on AWS at `https://assignment.lokeshh.com`
+- Backend (`apps/server`): hosted on AWS API domain
+- Database: Neon Postgres
 
-Set these environment variables for the backend service:
+### Production API
 
+- Backend base URL: `https://assignmentserver.lokeshh.com`
+
+The frontend API connector (`apps/web/src/utils/api-connection.ts`) is configured to use this URL.
+
+### Required environment variables
+
+Set these for production deployments:
+
+**Backend (`apps/server`)**
 - `PORT`
 - `DATABASE_URL`
-- `CORS_ORIGIN` (set this to your Vercel frontend domain)
+- `CORS_ORIGIN=https://assignment.lokeshh.com`
 - `NODE_ENV=production`
 - `JWT_SECRET`
 
-After deployment, copy your backend public URL (for example `https://your-api.example.com`).
+**Frontend (`apps/web`)**
+- `NEXT_PUBLIC_SERVER_URL` (set to your deployed backend URL)
 
-### 2) Deploy frontend on Vercel
+### Post-deploy verification
 
-Import this repository in Vercel. The included `vercel.json` sets install/build commands for this monorepo:
-
-- Install: `bun install`
-- Build: `bun run --filter web build -- --webpack`
-
-Set this required environment variable in the Vercel project:
-
-- `NEXT_PUBLIC_SERVER_URL` = your deployed backend URL
-
-Then deploy. Vercel will serve the Next.js app from `apps/web`.
+1. Open deployed frontend and confirm event list loads
+2. Verify `GET https://assignmentserver.lokeshh.com/api/events` returns paginated data
+3. Verify signup/login flow works end-to-end
+4. Verify reserve/cancel actions update seats correctly
+5. Verify CORS allows only `https://assignment.lokeshh.com` in production

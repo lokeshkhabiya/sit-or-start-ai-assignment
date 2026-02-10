@@ -431,32 +431,34 @@ This section addresses the mandatory deployment requirement from `requirements.m
 
 ### Target Deployment Topology
 
-- **Frontend**: Next.js app (`apps/web`) deployed on Vercel (or equivalent)
-- **Backend**: Express API (`apps/server`) deployed on Render/Railway/Fly
+- **Frontend**: Next.js app (`apps/web`) deployed on AWS at `https://assignment.lokeshh.com`
+- **Backend**: Express API (`apps/server`) deployed on AWS at `https://assignmentserver.lokeshh.com`
 - **Database**: PostgreSQL (Neon) connected to backend via `DATABASE_URL`
-- **CORS**: Backend allows the deployed frontend origin
+- **CORS**: Backend allows only the deployed frontend origin via `CORS_ORIGIN`
 
 ### Environment & Runtime Requirements
 
 - Backend must have:
   - `DATABASE_URL`
   - `JWT_SECRET`
-  - `CORS_ORIGIN` (deployed frontend URL)
+  - `CORS_ORIGIN=https://assignment.lokeshh.com`
+  - `NODE_ENV=production`
   - Any server envs validated by `packages/env/src/server.ts`
 - Frontend must have:
-  - API base URL pointing to deployed backend
+  - `NEXT_PUBLIC_SERVER_URL` pointing to deployed backend
   - Any web envs validated by `packages/env/src/web.ts`
 
 ### Deployment Validation Checklist
 
 After deployment, validate:
 
-1. Frontend URL loads and event list renders
-2. Backend API URL is reachable
-3. `/api/events` returns paginated data
+1. Frontend URL (`https://assignment.lokeshh.com`) loads and event list renders
+2. Backend API URL (`https://assignmentserver.lokeshh.com`) is reachable
+3. `/api/events` returns paginated data from production DB
 4. Auth flow works (signup/login/me)
 5. Reserve/cancel works from deployed UI against live DB
 6. Concurrency safety still holds (no overbooking / negative seats)
+7. CORS policy blocks non-frontend origins
 
 ---
 
