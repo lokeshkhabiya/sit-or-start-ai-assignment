@@ -4,6 +4,7 @@ import express from "express";
 import usersRouter from "./routes/users.routes";
 import seedRouter from "./routes/seed.routes";
 import authRouter from "./routes/auth.routes";
+import eventsRouter from "./routes/events.routes";
 
 const app = express();
 
@@ -22,6 +23,7 @@ app.get("/", (_req, res) => {
 
 app.use("/api/auth", authRouter);
 app.use("/api/users", usersRouter);
+app.use("/api/events", eventsRouter);
 app.use("/api/seed", seedRouter);
 
 const PORT = env.PORT || 3000;

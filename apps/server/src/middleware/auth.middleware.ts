@@ -13,6 +13,39 @@ declare global {
     }
 }
 
+/**
+ * Extracts user from token if present, but does not reject unauthenticated requests.
+ * Sets req.user if a valid token is provided, otherwise continues without it.
+ */
+export const optionalAuthMiddleware = async (
+    req: Request,
+    _res: Response,
+    next: NextFunction
+) => {
+    try {
+        const authHeader = req.headers.authorization;
+
+        if (authHeader?.startsWith("Bearer ")) {
+            const token = authHeader.substring(7);
+            if (token) {
+                const secret = env.JWT_SECRET;
+                const decoded = jwt.verify(token, secret) as {
+                    userId: string;
+                    email: string;
+                };
+                req.user = {
+                    userId: decoded.userId,
+                    email: decoded.email,
+                };
+            }
+        }
+    } catch {
+        // Invalid or expired token — continue without user context
+    }
+
+    next();
+};
+
 export const authMiddleware = async (
     req: Request,
     res: Response,
