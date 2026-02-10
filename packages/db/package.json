@@ -16,11 +16,15 @@
     "db:studio": "prisma studio"
   },
   "dependencies": {
+    "@neondatabase/serverless": "^1.0.2",
+    "@prisma/adapter-neon": "^7.3.0",
     "@prisma/adapter-pg": "^7.2.0",
     "@prisma/client": "catalog:",
     "@sitorstartai/env": "workspace:*",
+    "@types/ws": "^8.18.1",
     "dotenv": "catalog:",
     "pg": "^8.17.1",
+    "ws": "^8.19.0",
     "zod": "catalog:"
   },
   "devDependencies": {

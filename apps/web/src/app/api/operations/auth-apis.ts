@@ -34,3 +34,20 @@ export const login = async (email: string, password: string) => {
         return null;
     }
 };
+
+export const getCurrentUser = async (token: string) => {
+    try {
+        const response = await apiConnector(
+            "GET",
+            authAPIS.me,
+            null,
+            { Authorization: `Bearer ${token}` },
+            null,
+            "json",
+        );
+        return response?.data;
+    } catch (error) {
+        console.error("Error fetching user:", error);
+        return null;
+    }
+};

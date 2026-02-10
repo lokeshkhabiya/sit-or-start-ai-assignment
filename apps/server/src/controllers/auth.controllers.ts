@@ -2,7 +2,7 @@ import { env } from "@sitorstartai/env/server";
 import { loginSchema, signupSchema } from "@/utils/types";
 import prisma from "@sitorstartai/db";
 import type { Request, Response } from "express";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
 const signup = async (req: Request, res: Response) => {
@@ -127,7 +127,54 @@ const login = async (req: Request, res: Response) => {
     }
 };
 
+const me = async (req: Request, res: Response) => {
+    try {
+        if (!req.user?.userId) {
+            return res.status(401).json({
+                success: false,
+                data: null,
+                error: "UNAUTHORIZED",
+            });
+        }
+
+        const user = await prisma.user.findUnique({
+            where: {
+                id: req.user.userId,
+            },
+            select: {
+                id: true,
+                name: true,
+                email: true,
+                createdAt: true,
+                updatedAt: true,
+            },
+        });
+
+        if (!user) {
+            return res.status(404).json({
+                success: false,
+                data: null,
+                error: "USER_NOT_FOUND",
+            });
+        }
+
+        return res.status(200).json({
+            success: true,
+            data: user,
+            error: null,
+        });
+    } catch (error) {
+        console.log("Error while fetching user:", error);
+        return res.status(500).json({
+            success: false,
+            data: null,
+            error: "Internal server error",
+        });
+    }
+};
+
 export const authController = {
     signup,
     login,
+    me,
 };

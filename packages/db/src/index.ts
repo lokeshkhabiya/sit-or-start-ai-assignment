@@ -1,9 +1,14 @@
-import { PrismaPg } from "@prisma/adapter-pg";
 import { env } from "@sitorstartai/env/server";
+import { neonConfig } from "@neondatabase/serverless";
+import { PrismaNeon } from "@prisma/adapter-neon";
+import ws from "ws";
 
 import { PrismaClient } from "../prisma/generated/client";
 
-const adapter = new PrismaPg({
+neonConfig.webSocketConstructor = ws;
+neonConfig.poolQueryViaFetch = true;
+
+const adapter = new PrismaNeon({
   connectionString: env.DATABASE_URL,
 });
 
