@@ -31,8 +31,7 @@ export function EventCard({
 	});
 
 	return (
-		<div className="flex flex-col rounded-lg border border-border bg-card p-5 transition-shadow hover:shadow-md">
-			{/* Header: Name + Badge */}
+		<div className="flex flex-col rounded-lg border border-border bg-card p-5">
 			<div className="mb-4 flex items-start justify-between gap-3">
 				<h3 className="text-lg font-semibold leading-tight text-foreground">
 					{event.name}
@@ -55,12 +54,10 @@ export function EventCard({
 					<span>{formattedDate}</span>
 				</div>
 				<div className="flex items-center gap-2 text-sm text-muted-foreground">
-					<MapPin className="size-4 shrink-0" />
 					<span className="line-clamp-1">{event.description}</span>
 				</div>
 			</div>
 
-			{/* Seat info */}
 			<div className="mt-auto">
 				<div className="mb-2 flex items-center justify-between">
 					<div className="flex items-center gap-2 text-sm font-medium text-foreground">
@@ -74,15 +71,13 @@ export function EventCard({
 					</span>
 				</div>
 
-				{/* Progress bar */}
 				<div className="mb-4 h-2 w-full overflow-hidden rounded-full bg-muted">
 					<div
-						className="h-full rounded-full bg-foreground transition-all duration-300"
+						className="h-full rounded-full bg-foreground"
 						style={{ width: `${bookedPercent}%` }}
 					/>
 				</div>
 
-				{/* Action button */}
 				{isSoldOut && !hasReservation ? (
 					<Button
 						disabled

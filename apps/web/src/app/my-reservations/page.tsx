@@ -2,7 +2,7 @@
 
 import { useEffect, useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
-import { Calendar, MapPin, Loader2, ArrowLeft } from "lucide-react";
+import { Calendar, MapPin, Loader2, ArrowLeft, Dessert, Paperclip } from "lucide-react";
 import { toast } from "sonner";
 import Header from "@/components/header";
 import { Button } from "@/components/ui/button";
@@ -168,7 +168,6 @@ export default function MyReservationsPage() {
 														})}
 													</span>
 													<span className="flex items-center gap-1.5">
-														<MapPin className="size-3.5" />
 														<span className="line-clamp-1 max-w-[300px]">
 															{reservation.event.description}
 														</span>

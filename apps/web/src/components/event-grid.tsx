@@ -34,7 +34,6 @@ export function EventGrid() {
 			if (result?.success) {
 				let eventsData = result.data.events;
 
-				// If authenticated, fetch reservation status for each event
 				const token = localStorage.getItem("authToken");
 				if (token) {
 					const detailPromises = eventsData.map((event: { id: string }) =>
@@ -81,7 +80,6 @@ export function EventGrid() {
 		const result = await reserveSeat(eventId, token);
 
 		if (result?.success) {
-			// Update event in store with new seat count and reservation
 			updateEvent(eventId, {
 				availableSeats: result.data.event.availableSeats,
 				userReservation: {
@@ -112,7 +110,6 @@ export function EventGrid() {
 		const result = await cancelReservation(eventId, token);
 
 		if (result?.success) {
-			// Refetch event detail to get updated seat count
 			const detail = await fetchEventDetail(eventId, token);
 			if (detail?.success) {
 				updateEvent(eventId, {
@@ -120,7 +117,6 @@ export function EventGrid() {
 					userReservation: null,
 				});
 			} else {
-				// Fallback: increment available seats locally
 				const event = events.find((e) => e.id === eventId);
 				if (event) {
 					updateEvent(eventId, {
