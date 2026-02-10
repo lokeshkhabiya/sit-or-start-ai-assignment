@@ -1,0 +1,41 @@
+{
+  "name": "sitorstartai",
+  "private": true,
+  "workspaces": {
+    "packages": [
+      "apps/*",
+      "packages/*"
+    ],
+    "catalog": {
+      "dotenv": "^17.2.2",
+      "zod": "^4.1.13",
+      "typescript": "^5",
+      "@types/bun": "^1.3.4",
+      "@prisma/client": "^7.2.0"
+    }
+  },
+  "type": "module",
+  "scripts": {
+    "dev": "bun run --filter '*' dev",
+    "build": "bun run --filter '*' build",
+    "check-types": "bun run --filter '*' check-types",
+    "dev:native": "bun run --filter native dev",
+    "dev:web": "bun run --filter web dev",
+    "dev:server": "bun run --filter server dev",
+    "db:push": "bun run --filter @sitorstartai/db db:push",
+    "db:studio": "bun run --filter @sitorstartai/db db:studio",
+    "db:generate": "bun run --filter @sitorstartai/db db:generate",
+    "db:migrate": "bun run --filter @sitorstartai/db db:migrate"
+  },
+  "dependencies": {
+    "@sitorstartai/env": "workspace:*",
+    "dotenv": "catalog:",
+    "zod": "catalog:"
+  },
+  "devDependencies": {
+    "@sitorstartai/config": "workspace:*",
+    "@types/bun": "catalog:",
+    "typescript": "catalog:"
+  },
+  "packageManager": "bun@1.3.0"
+}

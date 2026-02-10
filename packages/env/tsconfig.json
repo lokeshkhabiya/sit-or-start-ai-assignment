@@ -1,0 +1,3 @@
+{
+  "extends": "@sitorstartai/config/tsconfig.base.json"
+}
