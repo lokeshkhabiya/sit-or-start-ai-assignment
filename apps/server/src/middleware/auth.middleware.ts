@@ -13,10 +13,6 @@ declare global {
     }
 }
 
-/**
- * Extracts user from token if present, but does not reject unauthenticated requests.
- * Sets req.user if a valid token is provided, otherwise continues without it.
- */
 export const optionalAuthMiddleware = async (
     req: Request,
     _res: Response,

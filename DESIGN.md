@@ -425,9 +425,7 @@ sitorstartai/
 
 ---
 
-## Deployment Plan (Mandatory Requirement)
-
-This section addresses the mandatory deployment requirement from `requirements.md`.
+## Deployment Plan
 
 ### Target Deployment Topology
 
@@ -462,7 +460,7 @@ After deployment, validate:
 
 ---
 
-## Engineering Decisions (Required by Assignment)
+## Engineering Decisions 
 
 ### 1) What tradeoffs did you make due to time constraints?
 
